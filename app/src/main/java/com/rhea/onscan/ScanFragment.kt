@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.BarcodeUtils
@@ -159,6 +160,7 @@ class ScanFragment : Fragment() {
     private fun readQr(result: Result) {
         activity?.runOnUiThread {
             viewModel.setScannedAddress(result.text)
+            toggleStatusView(true)
         }
     }
 
@@ -187,6 +189,7 @@ class ScanFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         codeScanner.startPreview()
+        toggleStatusView(isSuccess = false, shouldReset = true)
     }
 
     private fun pickFromGallery() {

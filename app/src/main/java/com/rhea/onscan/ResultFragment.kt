@@ -30,7 +30,7 @@ class ResultFragment : Fragment() {
                     else showSnackbar("The QR code seems to be Invalid!")
                 }
                 validateButton.setOnClickListener {
-                    val text = if (result) "The QR code is valid!" else "The QR code in invalid :("
+                    val text = if (result) "The QR code is valid!" else "The QR code is invalid :("
                     showSnackbar(text)
                 }
             }

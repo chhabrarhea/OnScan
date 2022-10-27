@@ -2,11 +2,13 @@ package com.rhea.onscan
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +30,7 @@ class MainViewModel @Inject constructor(
         savedStateHandle[QR_TYPE_KEY] = type
     }
 
-    fun setScannedAddress(address: String){
+    fun setScannedAddress(address: String) {
         _scannedAddress.postValue(address)
         validateAddress(address)
     }
@@ -41,13 +43,13 @@ class MainViewModel @Inject constructor(
     }
 
     private fun validateBTCAddress(address: String): Boolean {
-        return true
-
+        val pattern = Pattern.compile("^(1)[a-hj-km-zA-NP-Z1-9]{24,33}")
+        return pattern.matcher(address).matches()
     }
 
     private fun validateETHAddress(address: String): Boolean {
-        return true
-
+        val pattern = Pattern.compile("^(0x)[0-9a-f]*$")
+        return pattern.matcher(address).matches()
     }
 
     fun copyResult() {
