@@ -6,7 +6,9 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.rhea.onscan.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy {
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.qrType.observe(this) {
             addFragment(ScanFragment())
         }
-        viewModel.scanResult.observe(this){
+        viewModel.scannedAddress.observe(this){
             addFragment(ResultFragment())
         }
     }

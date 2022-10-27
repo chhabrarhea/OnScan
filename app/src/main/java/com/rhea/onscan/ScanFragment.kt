@@ -45,8 +45,6 @@ class ScanFragment : Fragment() {
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var imageResultLauncher: ActivityResultLauncher<Intent>
 
-    private var isFromGallery: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cameraPermissionLauncher =
@@ -160,7 +158,7 @@ class ScanFragment : Fragment() {
 
     private fun readQr(result: Result) {
         activity?.runOnUiThread {
-            viewModel.scanResult.postValue(result.text)
+            viewModel.setScannedAddress(result.text)
         }
     }
 

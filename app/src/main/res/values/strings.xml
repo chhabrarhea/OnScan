@@ -3,4 +3,8 @@
     <string name="btc">BTC Scanner</string>
     <string name="eth">ETH Scanner</string>
     <string name="unable_to_scan_qr">Unable to scan QR</string>
+    <string name="scan_results">Scan Results</string>
+    <string name="share_result">Share Result</string>
+    <string name="validate_address">Validate Address</string>
+    <string name="result_heading">%s Scan Results</string>
 </resources>
