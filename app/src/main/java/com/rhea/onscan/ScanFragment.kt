@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,9 +38,7 @@ class ScanFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    private val codeScanner: CodeScanner by lazy {
-        CodeScanner(requireContext(), binding!!.scannerView)
-    }
+    private lateinit var codeScanner: CodeScanner
 
     private var isFlashOn = false
 
@@ -56,6 +55,7 @@ class ScanFragment : Fragment() {
                     codeScanner.startPreview()
                     toggleStatusView(true, shouldReset = true)
                 }
+                else showSnackbar()
             }
 
         imageResultLauncher =
@@ -76,10 +76,27 @@ class ScanFragment : Fragment() {
             }
     }
 
+    private fun showSnackbar() {
+        binding?.root?.let {
+            val snackbar = Snackbar.make(it, "Permission is required", Snackbar.LENGTH_INDEFINITE)
+            snackbar.setAction("Settings"){
+                startActivity(
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        this.data = Uri.fromParts(
+                            "package",
+                            requireContext().packageName,
+                            null
+                        )
+                    }
+                )
+            }
+            snackbar.show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        setupScanner()
         checkPermission()
     }
 
@@ -90,6 +107,7 @@ class ScanFragment : Fragment() {
 
     private fun initViews() {
         binding?.apply {
+            codeScanner = CodeScanner(requireContext(), scannerView)
             backImageView.setOnClickListener {
                 activity?.finish()
             }
@@ -161,6 +179,7 @@ class ScanFragment : Fragment() {
         activity?.runOnUiThread {
             viewModel.setScannedAddress(result.text)
             toggleStatusView(true)
+            codeScanner.stopPreview()
         }
     }
 
@@ -188,6 +207,8 @@ class ScanFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        if (isHavingCameraPermissions())
+            setupScanner()
         codeScanner.startPreview()
         toggleStatusView(isSuccess = false, shouldReset = true)
     }
@@ -197,12 +218,6 @@ class ScanFragment : Fragment() {
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
         imageResultLauncher.launch(intent)
-    }
-
-    override fun onStop() {
-        if (isHavingCameraPermissions())
-            codeScanner.stopPreview()
-        super.onStop()
     }
 
     override fun onPause() {
