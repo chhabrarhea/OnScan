@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Rhea/AndroidStudioProjects/onScan/app/src/main/res/drawable/background_gradient.xml" value="0.1445" />
-        <entry key="..\:/Users/Rhea/AndroidStudioProjects/onScan/app/src/main/res/layout/fragment_home.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/Rhea/AndroidStudioProjects/onScan/app/src/main/res/drawable/ic_scanner.xml" value="0.1445" />
+        <entry key="..\:/Users/Rhea/AndroidStudioProjects/onScan/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Rhea/AndroidStudioProjects/onScan/app/src/main/res/layout/fragment_scan.xml" value="0.16197916666666667" />
       </map>
     </option>
   </component>

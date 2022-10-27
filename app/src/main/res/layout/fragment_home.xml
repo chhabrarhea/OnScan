@@ -5,6 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_gradient">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="120dp"
+        app:layout_constraintDimensionRatio="H, 1:1"
+        android:src="@drawable/ic_scanner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scan_eth_button"/>
+
+
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
