@@ -10,6 +10,7 @@
     <color name="medium_primary">#99000000</color>
     <color name="high_primary">#DE000000</color>
     <color name="secondary">#33097d</color>
+    <color name="secondary_variant">#25036d</color>
     <color name="error">#F02121</color>
     <color name="background">#f3f3f3</color>
 </resources>
