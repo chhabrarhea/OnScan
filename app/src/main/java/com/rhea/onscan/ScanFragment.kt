@@ -119,7 +119,7 @@ class ScanFragment : Fragment() {
         codeScanner.autoFocusMode = AutoFocusMode.CONTINUOUS
         codeScanner.scanMode = ScanMode.CONTINUOUS
         codeScanner.decodeCallback = DecodeCallback { result ->
-            readQr(result, false)
+            readQr(result)
         }
         codeScanner.errorCallback = ErrorCallback {
             activity?.runOnUiThread {
@@ -151,16 +151,16 @@ class ScanFragment : Fragment() {
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
             }
             val result = BarcodeUtils.decodeBitmap(bitmap)
-            if (result != null) readQr(result, true)
+            if (result != null) readQr(result)
             else toggleStatusView(false)
         } catch (e: Exception) {
             toggleStatusView(false)
         }
     }
 
-    private fun readQr(result: Result, isUploaded: Boolean) {
-        isFromGallery = isUploaded
+    private fun readQr(result: Result) {
         activity?.runOnUiThread {
+            viewModel.scanResult.postValue(result.text)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.rhea.onscan
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
 
     val qrType = savedStateHandle.getLiveData<QrType>(QR_TYPE_KEY)
+    val scanResult = MutableLiveData<String>()
 
     fun setQrType(type: QrType){
         savedStateHandle[QR_TYPE_KEY] = type
@@ -22,5 +24,4 @@ class MainViewModel @Inject constructor(
             ETH, BTC
         }
     }
-
 }
